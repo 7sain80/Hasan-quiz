@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختبار: الإمام الحسن المجتبى عليه السلام</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a5c35;
+    --green-mid: #2d8a52;
+    --green-light: #4ab574;
+    --gold: #c9952a;
+    --gold-light: #f0c04a;
+    --cream: #fdf6e3;
+    --cream-dark: #f5ead0;
+    --text-dark: #1a1a1a;
+    --text-mid: #3d3d2e;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Decorative background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 20%, rgba(26,92,53,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(201,149,42,0.08) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a5c35' fill-opacity='0.03'%3E%3Cpath d='M30 0l30 30-30 30L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+    position: relative; z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    display: block;
+    width: 120px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 18px auto 0;
+  }
+  .bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--green-dark);
+    opacity: 0.7;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+  .header h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: var(--green-dark);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .header h1 span { color: var(--gold); }
+  .header-sub {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 300;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    margin: 10px 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
+  }
+  .progress-bar-bg {
+    background: #ddd;
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dark), var(--green-light));
+    border-radius: 999px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px 28px 24px;
+    box-shadow: 0 4px 30px rgba(26,92,53,0.1), 0 1px 4px rgba(0,0,0,0.05);
+    border: 1.5px solid rgba(201,149,42,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 5px; height: 100%;
+    background: linear-gradient(180deg, var(--green-dark), var(--gold));
+    border-radius: 0 20px 20px 0;
+  }
+
+  .question-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--green-dark);
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .question-text {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(201,149,42,0.3);
+  }
+
+  /* OPTIONS */
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 550px) {
+    .options { grid-template-columns: 1fr; }
+  }
+
+  .option-btn {
+    background: var(--cream);
+    border: 2px solid rgba(26,92,53,0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: right;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.22s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--green-mid);
+    background: rgba(45,138,82,0.06);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(26,92,53,0.12);
+  }
+  .option-letter {
+    min-width: 30px; height: 30px;
+    background: var(--green-dark);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.22s;
+  }
+  .option-btn.correct {
+    border-color: #2e7d32;
+    background: #e8f5e9;
+  }
+  .option-btn.correct .option-letter {
+    background: #2e7d32;
+  }
+  .option-btn.wrong {
+    border-color: #c62828;
+    background: #ffebee;
+    animation: shake 0.3s ease;
+  }
+  .option-btn.wrong .option-letter {
+    background: #c62828;
+  }
+  .option-btn:disabled { cursor: default; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: none;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    animation: fadeUp 0.3s ease;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct-fb {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    color: #1b5e20;
+  }
+  .feedback.wrong-fb {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    color: #4a3800;
+  }
+  .feedback .source-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    background: rgba(201,149,42,0.15);
+    color: var(--gold);
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* NAV BUTTON */
+  .nav-area {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .next-btn {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(26,92,53,0.25);
+  }
+  .next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26,92,53,0.35);
+  }
+  .next-btn.show { display: flex; }
+
+  /* RESULT SCREEN */
+  #result-screen {
+    display: none;
+    text-align: center;
+    animation: fadeUp 0.5s ease;
+  }
+  .result-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 40px rgba(26,92,53,0.13);
+    border: 2px solid rgba(201,149,42,0.25);
+  }
+  .result-icon { font-size: 4rem; margin-bottom: 16px; }
+  .result-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.8rem;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+  }
+  .result-score {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+    margin: 16px 0;
+  }
+  .result-score span { color: var(--gold); }
+  .result-msg {
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .result-bars {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .res-stat {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 14px 22px;
+    min-width: 100px;
+  }
+  .res-stat .num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    display: block;
+  }
+  .res-stat .lbl { font-size: 0.82rem; color: #666; }
+  .res-stat.correct-s .num { color: #2e7d32; }
+  .res-stat.wrong-s .num { color: #c62828; }
+
+  .restart-btn {
+    background: var(--green-dark);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 14px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(26,92,53,0.25);
+  }
+  .restart-btn:hover {
+    transform: translateY(-2px);
+    background: var(--green-mid);
+  }
+
+  .decor-line {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 12px auto;
+    border-radius: 2px;
+  }
+
+  /* Slide transition */
+  .slide-out { animation: slideOut 0.25s ease forwards; }
+  .slide-in  { animation: slideIn  0.25s ease forwards; }
+  @keyframes slideOut {
+    to { opacity: 0; transform: translateX(40px); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <h1>الإمام <span>الحسن المجتبى</span><br>عليه السلام</h1>
+    <div class="header-sub">٢٥ سؤالاً من المصادر الشيعية المعتمدة • ولادته · نشأته · أحاديثه · أصحابه · استشهاده</div>
+    <div class="decor-line"></div>
+  </div>
+
+  <div id="quiz-screen">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span id="q-counter">السؤال ١ من ٢٥</span>
+        <span id="score-live">النتيجة: ٠</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="prog-bar"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="q-card">
+      <div class="question-num" id="q-num-badge">السؤال ١</div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options" id="options-grid"></div>
+      <div class="feedback" id="feedback-box"></div>
+      <div class="nav-area">
+        <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+          السؤال التالي ←
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-screen">
+    <div class="result-card">
+      <div class="result-icon" id="res-icon">🏆</div>
+      <div class="result-title">نتيجة الاختبار</div>
+      <div class="decor-line"></div>
+      <div class="result-score" id="res-score">٠ <span>/ ٢٥</span></div>
+      <div class="result-msg" id="res-msg"></div>
+      <div class="result-bars">
+        <div class="res-stat correct-s">
+          <span class="num" id="r-correct">0</span>
+          <span class="lbl">✅ صحيح</span>
+        </div>
+        <div class="res-stat wrong-s">
+          <span class="num" id="r-wrong">0</span>
+          <span class="lbl">❌ خطأ</span>
+        </div>
+        <div class="res-stat">
+          <span class="num" id="r-pct" style="color:var(--gold)">0%</span>
+          <span class="lbl">النسبة</span>
+        </div>
+      </div>
+      <button class="restart-btn" onclick="restartQuiz()">🔄 إعادة الاختبار</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  // ─── الولادة والنشأة ───────────────────────────────────────
+  {
+    q: "في أي مدينة وُلد الإمام الحسن بن علي عليه السلام؟",
+    opts: ["مكة المكرمة", "المدينة المنورة", "الكوفة", "الطائف"],
+    correct: 1,
+    fb: "وُلد الإمام الحسن عليه السلام في المدينة المنورة عام ٣ هـ.",
+    source: "الإرشاد للمفيد"
+  },
+  {
+    q: "في أي شهر وُلد الإمام الحسن عليه السلام وفق أشهر الروايات الشيعية؟",
+    opts: ["رجب", "شعبان", "رمضان", "ذو القعدة"],
+    correct: 2,
+    fb: "وُلد عليه السلام في شهر رمضان المبارك من السنة الثالثة للهجرة.",
+    source: "بحار الأنوار / مناقب ابن شهر آشوب"
+  },
+  {
+    q: "مَن سمّى الإمامَ الحسنَ بهذا الاسم؟",
+    opts: ["الإمام علي عليه السلام", "فاطمة الزهراء عليها السلام", "النبي محمد صلى الله عليه وآله", "عقيل بن أبي طالب"],
+    correct: 2,
+    fb: "سمّاه جدّه النبي الأكرم صلى الله عليه وآله بـ(الحسن)، وهو اسم لم يُعرف في الجاهلية.",
+    source: "الكافي للكليني"
+  },
+  {
+    q: "ما الكنية المشهورة للإمام الحسن عليه السلام؟",
+    opts: ["أبو الفضل", "أبو محمد", "أبو عبدالله", "أبو الحسن"],
+    correct: 1,
+    fb: "كنيته المشهورة هي (أبو محمد).",
+    source: "مناقب آل أبي طالب"
+  },
+  {
+    q: "كم سنةً عاشها الإمام الحسن عليه السلام في كنف جده النبي الأكرم؟",
+    opts: ["٣ سنوات", "٥ سنوات", "٧ سنوات", "١٠ سنوات"],
+    correct: 2,
+    fb: "قضى الإمام الحسن عليه السلام نحو ٧ سنوات في كنف جده النبي قبل وفاته صلى الله عليه وآله.",
+    source: "الإرشاد للمفيد"
+  },
+  {
+    q: "في حادثة المباهلة المشهورة، بأيّ صفة حضر الإمام الحسن عليه السلام؟",
+    opts: ["من الأنفس", "من النساء", "من الأبناء", "شاهداً فقط"],
+    correct: 2,
+    fb: "حضر الإمام الحسن والحسين عليهما السلام بوصفهما (الأبناء) في آية المباهلة.",
+    source: "تفسير القمي / بحار الأنوار"
+  },
+  {
+    q: "ما اللقب الذي كان النبي صلى الله عليه وآله يُطلقه على الإمام الحسن والحسين معاً؟",
+    opts: ["نجما الهدى", "سيّدا شباب أهل الجنة", "قمرا بني هاشم", "ريحانتا الأرض"],
+    correct: 1,
+    fb: "قال النبي الأكرم: (الحسن والحسين سيّدا شباب أهل الجنة).",
+    source: "الأمالي للصدوق / بحار الأنوار"
+  },
+  // ─── الإمامة والحياة السياسية ─────────────────────────────
+  {
+    q: "بعد استشهاد الإمام علي عليه السلام، متى تولّى الإمام الحسن الإمامة والخلافة؟",
+    opts: ["سنة ٣٥ هـ", "سنة ٣٧ هـ", "سنة ٤٠ هـ", "سنة ٤٥ هـ"],
+    correct: 2,
+    fb: "تولّى الإمامة والخلافة الظاهرة عام ٤٠ هـ إثر استشهاد أبيه أمير المؤمنين عليه السلام.",
+    source: "الإرشاد للمفيد"
+  },
+  {
+    q: "مع مَن أبرم الإمام الحسن عليه السلام معاهدة الصلح الشهيرة؟",
+    opts: ["مروان بن الحكم", "معاوية بن أبي سفيان", "عمرو بن العاص", "يزيد بن معاوية"],
+    correct: 1,
+    fb: "أبرم الصلح مع معاوية بن أبي سفيان عام ٤١ هـ.",
+    source: "الإرشاد للمفيد / بحار الأنوار"
+  },
+  {
+    q: "ما الهدف الرئيسي الذي سعى إليه الإمام الحسن من وراء صلحه؟",
+    opts: ["الحصول على المال والسلطة", "حقن دماء المسلمين وصون الشيعة", "الهروب من الحرب", "إرضاء معاوية"],
+    correct: 1,
+    fb: "صرّح الإمام عليه السلام بأن الصلح جاء لحقن دماء المسلمين وصون الشيعة من الإبادة.",
+    source: "الاحتجاج للطبرسي"
+  },
+  // ─── الأحاديث والحكم ──────────────────────────────────────
+  {
+    q: "أيّ هذه الحكم صحيح نسبتها للإمام الحسن عليه السلام؟",
+    opts: [
+      "العلم خير من المال",
+      "لا تستحيِ من إعطاء القليل فإن الحرمان أقل منه",
+      "من عرف نفسه فقد عرف ربه",
+      "الصمت حكمة وقليلٌ فاعله"
+    ],
+    correct: 1,
+    fb: "من أشهر أقواله عليه السلام في الكرم: (لا تستحيِ من إعطاء القليل فإن الحرمان أقل منه).",
+    source: "تحف العقول لابن شعبة الحراني"
+  },
+  {
+    q: "في وصيّته لابنه، ما الذي أوصاه به الإمام الحسن عليه السلام أولاً؟",
+    opts: ["الصلاة وإقامتها", "تقوى الله وطاعته", "طلب العلم", "صلة الرحم"],
+    correct: 1,
+    fb: "بدأ الإمام وصيته بتقوى الله والعمل بطاعته، وهو أساس كل خير.",
+    source: "تحف العقول / بحار الأنوار"
+  },
+  {
+    q: "ماذا قال الإمام الحسن عليه السلام في وصف العقل؟",
+    opts: [
+      "العقل نور في القلب يفرّق به بين الحق والباطل",
+      "لا غنى أنفع من العقل",
+      "العقل رأس المال وحسن الخلق ثوب جديد",
+      "العقل ما عُبد به الرحمن واكتُسب به الجنان"
+    ],
+    correct: 3,
+    fb: "قال عليه السلام: (العقل ما عُبد به الرحمن واكتُسب به الجنان).",
+    source: "تحف العقول لابن شعبة الحراني"
+  },
+  {
+    q: "ما الذي حثّ عليه الإمام الحسن عليه السلام في شأن الجار؟",
+    opts: [
+      "لا تؤذِ جارك بالكلام",
+      "ليس منّا من لا يأمن جارُه بوائقَه",
+      "تعاهد جارك بالسلام",
+      "خير الجيران من يحمي جاره"
+    ],
+    correct: 1,
+    fb: "قال عليه السلام: (ليس منّا من لا يأمن جارُه بوائقَه) ترسيخاً لقيمة حسن الجوار.",
+    source: "بحار الأنوار للمجلسي"
+  },
+  {
+    q: "ما قول الإمام الحسن عليه السلام في المداراة والتواضع؟",
+    opts: [
+      "التواضع نعمة لا يحسد عليها",
+      "تواضعوا تكونوا كالنجوم في السماء",
+      "خالطوا الناس بما يشتهون ودعوهم من أعمالهم",
+      "من تواضع لله رفعه الله"
+    ],
+    correct: 2,
+    fb: "قال عليه السلام: (خالطوا الناس بما يشتهون ودعوهم من أعمالهم) حثاً على المداراة.",
+    source: "تحف العقول"
+  },
+  // ─── الأصحاب والمقربون ────────────────────────────────────
+  {
+    q: "مَن هو الصحابي الجليل الذي حمل راية الإمام الحسن عليه السلام يوم المعسكر؟",
+    opts: ["عبدالله بن عباس", "قيس بن سعد بن عبادة", "عدي بن حاتم الطائي", "حجر بن عدي"],
+    correct: 1,
+    fb: "كان قيس بن سعد بن عبادة من أوفى أصحاب الإمام الحسن عليه السلام ومن حمل لواءه.",
+    source: "الإرشاد للمفيد / أنساب الأشراف"
+  },
+  {
+    q: "مَن هو المقرّب الشيعي الذي رافق الإمام الحسن عليه السلام ونقل كثيراً من حكمه وأحاديثه؟",
+    opts: ["سلمان الفارسي", "المسيّب بن نجبة الفزاري", "أبو ذر الغفاري", "حجر بن عدي الكندي"],
+    correct: 3,
+    fb: "حجر بن عدي الكندي كان من الموالين والناقلين لأخبار وأحاديث الإمام الحسن عليه السلام.",
+    source: "رجال الكشي / بحار الأنوار"
+  },
+  {
+    q: "مَن هو الفقيه الذي روى عن الإمام الحسن عليه السلام أحكام الصلاة في مسجد النبي؟",
+    opts: ["ابن عباس", "جابر بن عبدالله الأنصاري", "زيد بن أرقم", "أنس بن مالك"],
+    correct: 1,
+    fb: "جابر بن عبدالله الأنصاري من أبرز رواة أحاديث الإمام الحسن عليه السلام.",
+    source: "بحار الأنوار / رجال الطوسي"
+  },
+  {
+    q: "ما الذي يُروى عن عبدالله بن جعفر الطيار في علاقته بالإمام الحسن عليه السلام؟",
+    opts: [
+      "كان من أشد معارضيه",
+      "كان من المقرّبين المنتجعين لعلمه وفضله",
+      "لم يكن له علاقة به",
+      "كان رسوله إلى معاوية"
+    ],
+    correct: 1,
+    fb: "عبدالله بن جعفر الطيار كان من المقرّبين المُجلّين للإمام الحسن عليه السلام والمنتجعين لعلمه.",
+    source: "بحار الأنوار"
+  },
+  // ─── الكرم والأخلاق ───────────────────────────────────────
+  {
+    q: "أيّ لقب اشتُهر به الإمام الحسن عليه السلام بسبب جوده وكرمه الواسع؟",
+    opts: ["الحكيم", "الكريم", "الزاهد", "العابد"],
+    correct: 1,
+    fb: "عُرف الإمام عليه السلام بالكريم لكثرة عطائه وجوده على الفقراء والمحتاجين.",
+    source: "مناقب ابن شهر آشوب"
+  },
+  {
+    q: "كم مرة يُروى أن الإمام الحسن عليه السلام حجّ إلى بيت الله الحرام ماشياً؟",
+    opts: ["٥ مرات", "١٠ مرات", "٢٠ مرة", "٢٥ مرة"],
+    correct: 2,
+    fb: "يُروى أنه حجّ ماشياً عشرين مرة تعظيماً لشعائر الله.",
+    source: "مناقب ابن شهر آشوب / بحار الأنوار"
+  },
+  // ─── الاستشهاد ────────────────────────────────────────────
+  {
+    q: "في أي سنة استُشهد الإمام الحسن عليه السلام؟",
+    opts: ["٤٥ هـ", "٥٠ هـ", "٥٣ هـ", "٦٠ هـ"],
+    correct: 1,
+    fb: "استشهد الإمام الحسن عليه السلام عام ٥٠ هـ في المدينة المنورة.",
+    source: "الإرشاد للمفيد"
+  },
+  {
+    q: "مَن دسّ السمّ للإمام الحسن عليه السلام وفق المصادر الشيعية؟",
+    opts: ["رملة بنت سعيد", "جعدة بنت الأشعث بن قيس", "هند بنت سهيل", "أم حكيم"],
+    correct: 1,
+    fb: "يُروى أن جعدة بنت الأشعث دسّت له السمّ بتحريض من معاوية.",
+    source: "الإرشاد للمفيد / بحار الأنوار"
+  },
+  {
+    q: "في أي شهر استُشهد الإمام الحسن عليه السلام؟",
+    opts: ["محرم", "صفر", "ربيع الأول", "رجب"],
+    correct: 1,
+    fb: "استُشهد عليه السلام في شهر صفر من عام ٥٠ هـ.",
+    source: "مناقب ابن شهر آشوب / بحار الأنوار"
+  },
+  {
+    q: "أين دُفن الإمام الحسن عليه السلام؟",
+    opts: ["في النجف الأشرف", "في البقيع بالمدينة المنورة", "في مكة المكرمة", "في كربلاء"],
+    correct: 1,
+    fb: "دُفن الإمام الحسن عليه السلام في مقبرة البقيع بالمدينة المنورة.",
+    source: "الإرشاد للمفيد / بحار الأنوار"
+  }
+];
+
+// Arabic numerals helper
+function toArabicNum(n) {
+  return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+let current = 0, score = 0, answered = false;
+const optLetters = ['أ', 'ب', 'ج', 'د'];
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[current];
+  const total = questions.length;
+
+  document.getElementById('q-counter').textContent =
+    `السؤال ${toArabicNum(current + 1)} من ${toArabicNum(total)}`;
+  document.getElementById('score-live').textContent =
+    `النتيجة: ${toArabicNum(score)}`;
+  document.getElementById('prog-bar').style.width =
+    `${(current / total) * 100}%`;
+  document.getElementById('q-num-badge').textContent =
+    `السؤال ${toArabicNum(current + 1)}`;
+  document.getElementById('q-text').textContent = q.q;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-letter">${optLetters[i]}</span>${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    grid.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback-box');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+  document.getElementById('next-btn').className = 'next-btn';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('feedback-box');
+
+  if (idx === q.correct) {
+    score++;
+    btns[idx].classList.add('correct');
+    fb.className = 'feedback correct-fb show';
+    fb.innerHTML = `✅ <strong>إجابة صحيحة!</strong> ${q.fb}<br><span class="source-tag">📚 ${q.source}</span>`;
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('correct');
+    fb.className = 'feedback wrong-fb show';
+    fb.innerHTML = `❌ <strong>إجابة خاطئة.</strong> الصحيح: <strong>${q.opts[q.correct]}</strong>. ${q.fb}<br><span class="source-tag">📚 ${q.source}</span>`;
+  }
+
+  document.getElementById('score-live').textContent =
+    `النتيجة: ${toArabicNum(score)}`;
+
+  const nb = document.getElementById('next-btn');
+  nb.textContent = current + 1 < questions.length ? 'السؤال التالي ←' : 'عرض النتيجة 🏆';
+  nb.className = 'next-btn show';
+}
+
+function nextQuestion() {
+  const card = document.getElementById('q-card');
+  card.classList.add('slide-out');
+  setTimeout(() => {
+    card.classList.remove('slide-out');
+    current++;
+    if (current < questions.length) {
+      renderQuestion();
+      card.classList.add('slide-in');
+      setTimeout(() => card.classList.remove('slide-in'), 300);
+    } else {
+      showResult();
+    }
+  }, 250);
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = 'block';
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  const wrong = total - score;
+
+  document.getElementById('res-score').innerHTML =
+    `${toArabicNum(score)} <span>/ ${toArabicNum(total)}</span>`;
+  document.getElementById('r-correct').textContent = toArabicNum(score);
+  document.getElementById('r-wrong').textContent = toArabicNum(wrong);
+  document.getElementById('r-pct').textContent = toArabicNum(pct) + '%';
+
+  let icon, msg;
+  if (pct === 100) {
+    icon = '🏆'; msg = 'ممتاز! إجاباتك كلها صحيحة. أنتَ عارفٌ حقيقي بسيرة الإمام المجتبى عليه السلام.';
+  } else if (pct >= 80) {
+    icon = '⭐'; msg = 'رائع! نتيجة متميزة تدل على معرفة واسعة بسيرة الإمام الحسن عليه السلام.';
+  } else if (pct >= 60) {
+    icon = '👍'; msg = 'جيد! لديك معرفة جيدة، ويمكنك المراجعة لتعزيز معلوماتك عن سيرة الإمام عليه السلام.';
+  } else {
+    icon = '📚'; msg = 'شكراً لمشاركتك! ننصح بقراءة كتاب الإرشاد للمفيد وبحار الأنوار لمعرفة المزيد عن سيرة الإمام المجتبى.';
+  }
+  document.getElementById('res-icon').textContent = icon;
+  document.getElementById('res-msg').textContent = msg;
+}
+
+function restartQuiz() {
+  current = 0; score = 0;
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  renderQuestion();
+}
+
+// Init
+renderQuestion();
+</script>
+</body>
+</html>
